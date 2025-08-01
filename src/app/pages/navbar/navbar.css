@@ -1,0 +1,36 @@
+mat-toolbar {
+  background-color: #1D1B20;
+  color: #CCC2DC;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0 16px;
+  padding-top: 10px;
+  overflow: hidden;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.logo {
+  height: 32px;
+  width: auto;
+  margin-right: 2px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.login-button {
+  color: #CCC2DC;
+  background-color: transparent;
+  border: 1px solid #CCC2DC;
+  border-radius: 15px;
+  padding: 1em;
+  font-size: 14px;
+}

@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+/* Styles globaux pour tout le site */
+html, body {
+    overflow-x: hidden; /* Empêche le défilement horizontal */
+}
+
+/* Ou si vous voulez bloquer tout défilement : */
+/* 
+html, body {
+    overflow: hidden;
+}
+*/
