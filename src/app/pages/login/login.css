@@ -94,6 +94,15 @@
   box-shadow: none !important;
 }
 
+/* Styles pour le spinner dans le bouton */
+.spinner {
+  margin-right: 8px;
+}
+
+::ng-deep .login-button .mat-mdc-progress-spinner circle {
+  stroke: var(--mat-sys-on-primary) !important;
+}
+
 .login-actions {
   display: flex;
   justify-content: center;

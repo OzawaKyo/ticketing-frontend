@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { Auth } from '../../serices/auth';
 import { Router } from '@angular/router';
@@ -18,7 +19,8 @@ import { Router } from '@angular/router';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './login.html',
   styleUrl: './login.css'
@@ -28,6 +30,7 @@ export class Login {
 
   loginForm: FormGroup;
   hidePassword = true;
+  isLoading = false;
   errorMessage: string | null = null;
 
   constructor(private formBuilder: FormBuilder, private auth: Auth, private router: Router) {
@@ -40,12 +43,16 @@ export class Login {
 
   onSubmit() {
     if (this.loginForm.valid) {
+      this.isLoading = true;
+      this.errorMessage = null; // Reset error message
       const { email, password } = this.loginForm.value;
       this.auth.login(email, password).subscribe(
         response => {
+          this.isLoading = false;
           this.router.navigate(['/dashboard']);
         },
         error => {
+          this.isLoading = false;
           this.errorMessage = error.error?.message || 'Erreur de connexion. Veuillez vérifier vos identifiants.';
         }
       );
