@@ -1,0 +1,148 @@
+.login-card {
+  width: 100%;
+  max-width: 450px;
+  padding: 2rem;
+  background-color: #2D2830 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 
+            0 2px 4px rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(204, 194, 220, 0.1);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-title {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 0 0 0.5rem 0;
+  color: #CCC2DC;
+}
+
+.login-subtitle {
+  font-size: 1rem;
+  font-weight: 300;
+  margin: 0;
+  color: #CCC2DC;
+  opacity: 0.8;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-field {
+  width: 100%;
+}
+
+/* Personnalisation des champs Material UI pour respecter votre thème */
+::ng-deep .mat-mdc-form-field {
+  --mdc-outlined-text-field-label-text-color: #CCC2DC;
+  --mdc-outlined-text-field-input-text-color: #CCC2DC;
+  --mdc-outlined-text-field-outline-color: rgba(204, 194, 220, 0.3);
+  --mdc-outlined-text-field-hover-outline-color: #CCC2DC;
+  --mdc-outlined-text-field-focused-outline-color: var(--mat-sys-primary);
+}
+
+::ng-deep .mat-mdc-form-field .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control::placeholder {
+  color: rgba(204, 194, 220, 0.6);
+}
+
+::ng-deep .mat-mdc-form-field .mat-mdc-floating-label {
+  color: #CCC2DC;
+}
+
+::ng-deep .mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+  color: var(--mat-sys-primary);
+}
+
+.login-button {
+  margin-top: 1rem;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  background-color: var(--mat-sys-primary) !important;
+  color: var(--mat-sys-on-primary) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.login-button:hover:not([disabled]) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(var(--mat-sys-primary-rgb), 0.3);
+}
+
+.login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(204, 194, 220, 0.1);
+}
+
+.forgot-password-button {
+  color: #CCC2DC !important;
+  font-weight: 300;
+  text-transform: none;
+}
+
+.forgot-password-button:hover {
+  color: var(--mat-sys-primary) !important;
+}
+
+.register-button {
+  color: #CCC2DC !important;
+  font-weight: 300;
+  text-transform: none;
+  margin-left: 20px;
+}
+
+
+/* Icônes */
+::ng-deep .mat-icon {
+  color: #CCC2DC;
+}
+
+::ng-deep .login-button .mat-icon {
+  color: var(--mat-sys-on-primary);
+}
+
+/* Erreurs */
+::ng-deep .mat-mdc-form-field .mat-mdc-form-field-error {
+  color: #FF6B6B;
+  font-size: 0.875rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-container {
+    padding: 10px;
+    min-height: 100vh;
+  }
+  
+  .login-card {
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+  
+  .login-title {
+    font-size: 1.75rem;
+  }
+  
+  .login-subtitle {
+    font-size: 0.9rem;
+  }
+}

@@ -4,12 +4,27 @@
     overflow: hidden;
 }
 .homepage-content {
+    align-self: center;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 5em;
-    padding: 0px;
+    justify-content: space-between;
+    gap: 10em;
+    /* padding-top: 20px; */
     height: 80vh;
+    max-width: 1200px;
+
+}
+
+.homepage-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+    transition: transform 1s ease-in-out;
+    transform: translateY(0);
+    
 }
 
 .homepage-text {
@@ -19,7 +34,11 @@
     text-align: center;
     max-width: 650px;
     padding-top: 20px;
+    transition: transform 1s ease-in-out;
+    transform: translateY(0);
+    
 }
+
 .homepage-title {
     font-size: 45px;
     font-weight: 400;
@@ -73,4 +92,7 @@
     max-width: 450px;
     height: auto;
     margin-top: 20px;
+    transition: transform 1s ease-in-out;
+    will-change: transform;
+
 }
