@@ -1,7 +1,7 @@
 <div class="homepage-container">
     <app-navbar></app-navbar>
     <div class="homepage-content">
-        <div *ngIf="!showLogin" class="homepage-text">
+        <div *ngIf="!showLogin && !showRegister" class="homepage-text">
             <h1 class="homepage-title">Gérez vos tickets de support efficacement en quelques clics !</h1>
             <h2 class="homepage-subtitle">Suivez, assignez et résolvez les demandes de vos utilisateurs en toute simplicité grâce à une interface moderne et intuitive.</h2>
             <div class="homepage-actions">
@@ -10,11 +10,14 @@
             </div>
         </div>
         <div *ngIf="showLogin" class="homepage-login">
-            <app-login></app-login>
+            <app-login (registerClick)="onRegisterClick()"></app-login>
+        </div>
+        <div *ngIf="showRegister" class="homepage-register">
+            <app-register (loginClick)="onLoginClick()"></app-register>
         </div>
         <div class="homepage-illustration">
-            <img *ngIf="!showLogin" class="homepage-image" src="illu.gif" alt="dd">
-            <img *ngIf="showLogin" class="homepage-image" src="Login.gif" alt="dd">
+            <img *ngIf="!showLogin && !showRegister" class="homepage-image" src="illu.gif" alt="dd">
+            <img *ngIf="showLogin || showRegister" class="homepage-image" src="Login.gif" alt="dd">
         </div>
     </div>
 </div>

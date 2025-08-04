@@ -23,6 +23,8 @@ export class Navbar {
   }
 
   onMenuClick() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['']);
+    // reload the page to reset the state
+    window.location.reload();
   }
 }

@@ -52,15 +52,17 @@
           <mat-icon>login</mat-icon>
           Se connecter
         </button>
-      </form>
+        <!-- Afficher un message d'erreur si l'authentification échoue -->
+        <mat-error *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </mat-error>
+        </form>
     </mat-card-content>
 
     <mat-card-actions class="login-actions">
-      <button mat-button class="forgot-password-button">
-        Mot de passe oublié ?
-      </button>
       <button mat-button class="register-button" (click)="onRegisterClick()">
-        S'inscrire
+        <mat-icon>how_to_reg</mat-icon>
+        Vous n'avez pas de compte ? 
       </button>
     </mat-card-actions>
   </mat-card>

@@ -8,10 +8,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10em;
+    /* gap: 10em; */
     /* padding-top: 20px; */
     height: 80vh;
-    max-width: 1200px;
+    width: 1200px;
 
 }
 
@@ -21,10 +21,20 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 400px;
+    max-width: 650px;
     transition: transform 1s ease-in-out;
     transform: translateY(0);
-    
+}
+
+.homepage-register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 650px;
+    transition: transform 1s ease-in-out;
+    transform: translateY(0);
 }
 
 .homepage-text {
@@ -85,6 +95,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 400px;
 }
 
 .homepage-image {
