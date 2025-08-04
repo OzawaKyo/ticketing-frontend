@@ -5,10 +5,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
+import { Auth } from '../../serices/auth';
+import { Router } from '@angular/router'; 
 @Component({
   selector: 'app-register',
-  imports: [  CommonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule ],
+  imports: [  CommonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule ],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
@@ -20,7 +23,10 @@ export class Register implements OnInit, AfterViewInit {
 
   registerForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) {
+  errorMessage: string | null = null;
+  isLoading = false;
+
+  constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef , private auth: Auth, private router: Router) {
     this.registerForm = this.formBuilder.group({
       prenom: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
       nom: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
@@ -43,8 +49,19 @@ export class Register implements OnInit, AfterViewInit {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      console.log('Données d\'inscription:', this.registerForm.value);
-      // Ici vous pouvez ajouter la logique d'inscription
+      this.isLoading = true;
+      this.errorMessage = null; // Reset error message
+      const { prenom, nom, email, password } = this.registerForm.value;
+      this.auth.register(prenom, nom, email, password).subscribe(
+        (response) => {
+          this.isLoading = false;
+          this.router.navigate(['/dashboard']);
+        },
+        (error) => {
+          this.isLoading = false;
+          this.errorMessage = error.error?.message || 'Erreur lors de l\'inscription. Veuillez réessayer.';
+        }
+      );
     }
   }
 

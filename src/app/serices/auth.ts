@@ -20,7 +20,11 @@ export class Auth {
   }
 
   register(prenom: string, nom: string, email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/signup`, { prenom, nom, email, password });
+    return this.http.post(`${this.apiUrl}/signup`, { prenom, nom, email, password }).pipe(
+      tap((response: any) => {
+        localStorage.setItem('access_token', response.access_token);
+      })
+    );
   }
 }
 

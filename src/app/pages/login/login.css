@@ -134,7 +134,7 @@
 
 .error-message {
   font-size: 0.875rem;
-  margin-left: 3em;
+  align-self: center;
 }
 
 /* S'assurer que les boutons Material sont visibles */

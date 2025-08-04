@@ -60,10 +60,15 @@
                 </mat-form-field>
             </div>
 
-            <button mat-raised-button type="submit" class="register-button" [disabled]="!registerForm.valid">
-                <mat-icon>how_to_reg</mat-icon>
-                S'inscrire
+            <button mat-raised-button type="submit" class="register-button" [disabled]="!registerForm.valid || isLoading">
+                <mat-spinner *ngIf="isLoading" diameter="20" class="spinner"></mat-spinner>
+                <mat-icon *ngIf="!isLoading">how_to_reg</mat-icon>
+                {{ isLoading ? '' : 'S\'inscrire' }}
             </button>
+            <!-- Afficher un message d'erreur si l'inscription échoue -->
+            <mat-error *ngIf="errorMessage" class="error-message">
+                {{ errorMessage }}
+            </mat-error>
         </form>
     </mat-card-content>
 
