@@ -26,6 +26,22 @@ export class Auth {
       })
     );
   }
+
+  // Check if user is authenticated
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('access_token');
+    return !!token;
+  }
+
+  // Get the current access token
+  getToken(): string | null {
+    return localStorage.getItem('access_token');
+  }
+
+  // Logout user
+  logout(): void {
+    localStorage.removeItem('access_token');
+  }
 }
 
 

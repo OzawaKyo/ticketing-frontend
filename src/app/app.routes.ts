@@ -1,12 +1,14 @@
 import { Routes } from '@angular/router';
 import { Homepage } from './pages/homepage/homepage';
-import { Login } from './pages/login/login';
-import { Register } from './pages/register/register';
+import { Dashboard } from './pages/dashboard/dashboard';
+import { authGuard } from './guards/auth-guard';
+import { redirectGuard } from './guards/redirect-guard';
+import { publicGuard } from './guards/public-guard';
 
 export const routes: Routes = [
-
-    { path: '', component: Homepage },
-    { path: 'login', component: Login },
-    { path: 'register', component: Register },
+    { path: '', canActivate: [redirectGuard], children: [] }, // Smart redirect based on auth status
+    { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
+    { path: 'homepage', component: Homepage, canActivate: [publicGuard] }, // Redirect to dashboard if already logged in
+    { path: '**', redirectTo: '', pathMatch: 'full' } // Wildcard route - redirect to root for smart routing
 ];
 export default routes;
