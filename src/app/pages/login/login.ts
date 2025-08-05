@@ -50,6 +50,7 @@ export class Login {
         response => {
           this.isLoading = false;
           this.router.navigate(['/dashboard']);
+
         },
         error => {
           this.isLoading = false;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class Auth {
 
   private apiUrl = 'https://ticketing-backend-50r0.onrender.com/auth';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, { email, password }).pipe(
@@ -41,6 +42,8 @@ export class Auth {
   // Logout user
   logout(): void {
     localStorage.removeItem('access_token');
+    this.router.navigate(['/homepage']);
+
   }
 }
 

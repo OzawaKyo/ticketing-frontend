@@ -1,0 +1,11 @@
+<div class="dashboard-container">
+    <h1>Dashboard</h1>
+    <div class="dashboard-content">
+        <mat-card>
+            <div mat-card-avatar class="user-avatar"></div>
+            <mat-card-title>{{ userProfile?.prenom }} {{ userProfile?.nom }}</mat-card-title>
+            <mat-card-subtitle class="user-role">Rôle: {{ userRole }}</mat-card-subtitle>
+        </mat-card>
+    </div>
+      <button class="logout" (click)="logOut()">Logout</button>
+</div>

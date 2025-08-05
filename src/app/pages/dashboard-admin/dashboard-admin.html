@@ -1,0 +1,26 @@
+<div class="dashboard-admin">
+  <div class="header">
+    <h1>Dashboard Administrateur</h1>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="loading">
+    <p>Chargement...</p>
+  </div>
+
+  <!-- Contenu principal -->
+  <div *ngIf="!isLoading && userProfile" class="main-content">
+    <div class="welcome-section">
+      <h2>Bienvenue Administrateur, {{ userProfile.prenom }} {{ userProfile.nom }}</h2>
+      <p class="role-badge admin">Rôle: {{ userRole }}</p>
+    </div>
+
+    <!-- Ajoutez votre contenu ici -->
+    
+  </div>
+
+  <!-- Erreur -->
+  <div *ngIf="!isLoading && !userProfile" class="error">
+    <p>Erreur lors du chargement des données administrateur</p>
+  </div>
+</div>
