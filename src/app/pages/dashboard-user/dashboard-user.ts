@@ -1,14 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../user';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { Auth } from '../../serices/auth';
+import { Navbar } from '../navbar/navbar';
 
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-dashboard-user',
-  imports: [CommonModule, MatCardModule],
+  imports: [
+    CommonModule, 
+    MatSidenavModule, 
+    MatButtonModule, 
+    MatIconModule, 
+    MatListModule,
+    Navbar
+  ],
   templateUrl: './dashboard-user.html',
   styleUrls: ['./dashboard-user.css']
 })
@@ -16,6 +27,7 @@ export class DashboardUser implements OnInit {
   userRole: string = '';
   userProfile: any = null;
   isLoading: boolean = true;
+  selectedTab: string = 'tab1';
 
   constructor(private userService: User, private authService: Auth, private router: Router) { }
 
@@ -35,6 +47,13 @@ export class DashboardUser implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  selectTab(tab: string): void {
+    this.selectedTab = tab;
+  }
+
+  createNewTicket(): void {
   }
 
   logOut(): void {

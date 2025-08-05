@@ -13,17 +13,17 @@ export class UserGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.userService.getUserRole().pipe(
       map(role => {
-        console.log('User Guard - Rôle vérifié:', role);
+        // console.log('User Guard - Rôle vérifié:', role);
         if (role === 'user') {
           return true;
         } else {
-          console.log('Accès refusé - Rôle requis: user, Rôle actuel:', role);
+          // console.log('Accès refusé - Rôle requis: user, Rôle actuel:', role);
           this.router.navigate(['/dashboard-admin']);
           return false;
         }
       }),
       catchError(error => {
-        console.error('Erreur lors de la vérification du rôle user:', error);
+        // console.error('Erreur lors de la vérification du rôle user:', error);
         this.router.navigate(['/homepage']);
         return of(false);
       })

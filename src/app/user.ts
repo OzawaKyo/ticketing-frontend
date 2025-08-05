@@ -18,7 +18,6 @@ export class User {
 
         return this.http.get(`${this.apiUrl}/profile`, { headers }).pipe(
             tap((response: any) => {
-                console.log('User profile fetched:', response);
             })
         );
     }
@@ -32,7 +31,6 @@ export class User {
         return this.http.get(`${this.apiUrl}/profile`, { headers }).pipe(
             map((response: any) => response.role),
             tap((role: any) => {
-                console.log('User role fetched:', role);
             })
         );
     }
