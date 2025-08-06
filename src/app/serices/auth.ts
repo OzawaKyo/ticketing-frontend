@@ -31,7 +31,15 @@ export class Auth {
   // Check if user is authenticated
   isAuthenticated(): boolean {
     const token = localStorage.getItem('access_token');
-    return !!token;
+    if (!token) {
+      return false;
+    }
+    
+    // Vérification basique de la présence du token
+    // Le backend ne fournit pas d'endpoint de vérification, 
+    // donc on se base sur la présence du token
+    // L'interceptor gérera les cas où le token est expiré
+    return true;
   }
 
   // Get the current access token
@@ -42,8 +50,8 @@ export class Auth {
   // Logout user
   logout(): void {
     localStorage.removeItem('access_token');
-    this.router.navigate(['/homepage']);
-
+    console.log('Utilisateur déconnecté');
+    this.router.navigate(['/login']);
   }
 }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../user';
+import { Auth } from '../../serices/auth';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Navbar } from '../navbar/navbar';
@@ -27,9 +28,15 @@ export class DashboardUser implements OnInit {
   isLoading: boolean = true;
   selectedTab: string = 'tab1';
 
-  constructor(private userService: User, private router: Router) { }
+  constructor(private userService: User, private authService: Auth, private router: Router) { }
 
   ngOnInit(): void {
+    // Vérifier si l'utilisateur est authentifié avant de charger les données
+    if (!this.authService.isAuthenticated()) {
+      console.log('Utilisateur non authentifié, redirection vers la page de connexion');
+      this.router.navigate(['/login']);
+      return;
+    }
     this.loadUserData();
   }
 
@@ -43,6 +50,14 @@ export class DashboardUser implements OnInit {
       error: (error) => {
         console.error('Erreur lors du chargement du profil:', error);
         this.isLoading = false;
+        
+        // Si c'est une erreur 401, l'interceptor s'en chargera automatiquement
+        // Mais on peut ajouter une gestion locale supplémentaire si nécessaire
+        if (error.status === 401) {
+          console.log('Token invalide détecté dans le dashboard');
+          this.authService.logout();
+          this.router.navigate(['/login']);
+        }
       }
     });
   }

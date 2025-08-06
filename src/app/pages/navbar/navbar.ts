@@ -11,6 +11,7 @@ import { User } from '../../user';
 
 @Component({
   selector: 'app-navbar',
+  standalone: true,
   imports: [
     MatToolbarModule,
     MatButtonModule,
