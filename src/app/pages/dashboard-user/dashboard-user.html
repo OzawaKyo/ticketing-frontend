@@ -14,7 +14,7 @@
             <mat-nav-list class="nav-list">
                 <mat-list-item class="nav-item" [class.active]="selectedTab === 'tab1'" (click)="selectTab('tab1')">
                     <mat-icon matListItemIcon>sell</mat-icon>
-                    <span matListItemTitle>Mes Tickets</span>
+                    <span matListItemTitle>Tickets</span>
                 </mat-list-item>
 
                 <mat-list-item class="nav-item" [class.active]="selectedTab === 'tab2'" (click)="selectTab('tab2')">
@@ -33,20 +33,7 @@
             <div class="content-area">
                 <!-- Contenu principal basé sur l'onglet sélectionné -->
                 <div [ngSwitch]="selectedTab">
-                    <div *ngSwitchCase="'tab1'" class="tab-content">
-                        <h3>Mes Tickets</h3>
-                        <p>Liste de tous vos tickets</p>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut explicabo qui, enim tenetur
-                            error aperiam quia praesentium eos dignissimos at repudiandae earum non facilis architecto
-                            cumque voluptatem, provident quas repellendus.</p>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut explicabo qui, enim tenetur
-                            error aperiam quia praesentium eos dignissimos at repudiandae earum non facilis architecto
-                            cumque voluptatem, provident quas repellendus.</p>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut explicabo qui, enim tenetur
-                            error aperiam quia praesentium eos dignissimos at repudiandae earum non facilis architecto
-                            cumque voluptatem, provident quas repellendus.</p>
-
-                    </div>
+                    <app-ticket-table *ngSwitchCase="'tab1'"></app-ticket-table>
 
                     <div *ngSwitchCase="'tab2'" class="tab-content">
                         <h3>Mes Commentaires</h3>
@@ -59,7 +46,7 @@
                             cumque voluptatem, provident quas repellendus.</p>
                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut explicabo qui, enim tenetur
                             error aperiam quia praesentium eos dignissimos at repudiandae earum non facilis architecto
-                            cumque voluptatem, provident quas repellendus.</p>  
+                            cumque voluptatem, provident quas repellendus.</p>
                     </div>
 
                     <div *ngSwitchCase="'tab3'" class="tab-content">
