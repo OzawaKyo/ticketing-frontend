@@ -6,7 +6,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Auth } from '../../serices/auth';
+import { Auth } from '../../services/auth';
 import { User } from '../../user';
 
 @Component({

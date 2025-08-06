@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../user';
-import { Auth } from '../../serices/auth';
+import { Auth } from '../../services/auth';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Navbar } from '../navbar/navbar';

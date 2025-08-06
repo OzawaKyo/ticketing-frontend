@@ -1,6 +1,6 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { Auth } from '../serices/auth';
+import { Auth } from '../services/auth';
 
 export const publicGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
