@@ -5,8 +5,9 @@
             <div class="cta-section">
                 <button mat-raised-button color="primary" class="new-ticket-btn" (click)="createNewTicket()">
                     <mat-icon>add</mat-icon>
-                    Nouveau tickets
                 </button>
+                <span class="cta-label">Nouveau</span>
+                <span class="cta-label">Ticket</span>
             </div>
 
             <!-- Navigation Tabs -->
@@ -18,7 +19,7 @@
 
                 <mat-list-item class="nav-item" [class.active]="selectedTab === 'tab2'" (click)="selectTab('tab2')">
                     <mat-icon matListItemIcon>mode_comment</mat-icon>
-                    <span matListItemTitle>Mes Commentaires</span>
+                    <span matListItemTitle>Commentaires</span>
                 </mat-list-item>
 
                 <mat-list-item class="nav-item" [class.active]="selectedTab === 'tab3'" (click)="selectTab('tab3')">
@@ -26,14 +27,6 @@
                     <span matListItemTitle>Historique</span>
                 </mat-list-item>
             </mat-nav-list>
-
-            <!-- Logout Button -->
-            <div class="logout-section">
-                <button mat-button class="logout-btn" (click)="logOut()">
-                    <mat-icon>logout</mat-icon>
-                    Logout
-                </button>
-            </div>
         </mat-sidenav>
 
         <mat-sidenav-content class="main-content">

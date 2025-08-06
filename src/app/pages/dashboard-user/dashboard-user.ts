@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../user';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Auth } from '../../serices/auth';
 import { Navbar } from '../navbar/navbar';
-
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,7 +27,7 @@ export class DashboardUser implements OnInit {
   isLoading: boolean = true;
   selectedTab: string = 'tab1';
 
-  constructor(private userService: User, private authService: Auth, private router: Router) { }
+  constructor(private userService: User, private router: Router) { }
 
   ngOnInit(): void {
     this.loadUserData();
@@ -55,8 +53,4 @@ export class DashboardUser implements OnInit {
 
   createNewTicket(): void {
   }
-
-  logOut(): void {
-    this.authService.logout();
-  }
-}
+}   
