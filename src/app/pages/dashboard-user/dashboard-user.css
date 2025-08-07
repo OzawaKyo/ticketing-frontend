@@ -1,5 +1,5 @@
 .dashboard-container {
-    height: 100vh;
+    height: calc(100vh - 64px); /* Hauteur totale moins la navbar */
     overflow: hidden;
     background-color: #1D1B20;
     display: flex;
@@ -8,6 +8,7 @@
 
 .sidenav-container {
     height: 100%;
+    overflow: hidden;
 }
 
 .sidenav {
@@ -186,6 +187,7 @@
 
 .main-content {
     background-color: #1D1B20;
+    overflow: hidden;
 }
 
 .content-area {

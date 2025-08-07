@@ -3,7 +3,6 @@ import { User } from '../../user';
 import { Auth } from '../../services/auth';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Navbar } from '../navbar/navbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,7 +17,6 @@ import { TicketTableComponent } from '../../components/ticket-table/ticket-table
     MatButtonModule, 
     MatIconModule, 
     MatListModule,
-    Navbar,
     TicketTableComponent
   ],
   templateUrl: './dashboard-user.html',
@@ -69,5 +67,7 @@ export class DashboardUser implements OnInit {
   }
 
   createNewTicket(): void {
+    this.router.navigate(['/tickets/create']);
   }
+
 }   

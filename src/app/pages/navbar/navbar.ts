@@ -78,8 +78,7 @@ export class Navbar implements OnInit {
 
   onMenuClick() {
     this.router.navigate(['']);
-    // reload the page to reset the state
-    window.location.reload();
+    // reload the page after navigating to home    
   }
 
   onProfileClick() {

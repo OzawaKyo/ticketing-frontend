@@ -1,13 +1,20 @@
 <mat-card class="ticket-table-card">
-  <!-- <mat-card-header>
-    <mat-card-title>
-      <mat-icon>sell</mat-icon>
-      Mes Tickets
-    </mat-card-title>
-  </mat-card-header> -->
-
   <mat-card-content>
-    <div class="table-container">
+    <!-- Indicateur de chargement -->
+    <div *ngIf="isLoading" class="loading-container">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Chargement des tickets...</p>
+    </div>
+
+    <!-- Message d'erreur -->
+    <div *ngIf="error && !isLoading" class="error-container">
+      <mat-icon class="error-icon">error</mat-icon>
+      <p>{{error}}</p>
+      <button mat-raised-button color="primary" (click)="loadTickets()">Réessayer</button>
+    </div>
+
+    <!-- Tableau des tickets -->
+    <div *ngIf="!isLoading && !error" class="table-container">
       <table mat-table [dataSource]="tickets" class="tickets-table">
         
         <!-- ID Column -->
@@ -93,12 +100,12 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="ticket-row"></tr>
       </table>
-    </div>
 
-    <!-- Message si aucun ticket -->
-    <div *ngIf="tickets.length === 0" class="no-tickets">
-      <mat-icon class="no-tickets-icon">inbox</mat-icon>
-      <p>Aucun ticket trouvé</p>
+      <!-- Message si aucun ticket -->
+      <div *ngIf="tickets.length === 0 && !isLoading && !error" class="no-tickets">
+        <mat-icon class="no-tickets-icon">inbox</mat-icon>
+        <p>Aucun ticket trouvé</p>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>

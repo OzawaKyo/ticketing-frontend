@@ -1,0 +1,72 @@
+<div class="create-container">
+    <div class="content-area">
+        <mat-card class="ticket-card">
+            <mat-card-header>
+                <div class="ticket-header">
+                    <h1 class="ticket-title">Créer un nouveau ticket</h1>
+                    <p class="ticket-subtitle">Décrivez votre problème ou votre demande en détail</p>
+                </div>
+            </mat-card-header>
+
+            <mat-card-content>
+                <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()" class="ticket-form">
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Titre du ticket</mat-label>
+                        <input matInput type="text" formControlName="title" placeholder="Résumé du problème ou de la demande">
+                        <mat-icon matSuffix>title</mat-icon>
+                        <mat-error *ngIf="ticketForm.get('title')?.hasError('required')">
+                            Le titre est requis
+                        </mat-error>
+                        <mat-error *ngIf="ticketForm.get('title')?.hasError('minlength')">
+                            Le titre doit contenir au moins 3 caractères
+                        </mat-error>
+                        <mat-error *ngIf="ticketForm.get('title')?.hasError('maxlength')">
+                            Le titre ne peut pas dépasser 100 caractères
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Description détaillée</mat-label>
+                        <textarea matInput formControlName="description" rows="6" 
+                                placeholder="Décrivez votre problème en détail, les étapes pour le reproduire, l'impact, etc."></textarea>
+                        <mat-icon matSuffix>description</mat-icon>
+                        <mat-error *ngIf="ticketForm.get('description')?.hasError('required')">
+                            La description est requise
+                        </mat-error>
+                        <mat-error *ngIf="ticketForm.get('description')?.hasError('minlength')">
+                            La description doit contenir au moins 10 caractères
+                        </mat-error>
+                        <mat-error *ngIf="ticketForm.get('description')?.hasError('maxlength')">
+                            La description ne peut pas dépasser 1000 caractères
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Message d'erreur global -->
+                    <div *ngIf="error" class="error-message">
+                        <mat-icon>error</mat-icon>
+                        <span>{{ error }}</span>
+                    </div>
+
+                    <div class="form-actions">
+                        <button mat-button type="button" class="cancel-button" (click)="goBack()" [disabled]="isLoading">
+                            <mat-icon>arrow_back</mat-icon>
+                            Annuler
+                        </button>
+                        
+                        <button mat-raised-button color="primary" type="submit" class="submit-button" 
+                                [disabled]="!ticketForm.valid || isLoading">
+                            <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+                            <mat-icon *ngIf="!isLoading">send</mat-icon>
+                            <span *ngIf="!isLoading">Créer le ticket</span>
+                            <span *ngIf="isLoading">Création en cours...</span>
+                        </button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    
+    <div class="illustration">
+        <img src="Form.gif" alt="Créer un ticket" class="ticket-illustration">
+    </div>
+</div>

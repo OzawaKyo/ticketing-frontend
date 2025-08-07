@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Navbar } from '../navbar/navbar';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -8,7 +7,7 @@ import { Register } from '../register/register';
 
 @Component({
   selector: 'app-homepage',
-  imports: [ CommonModule, Navbar, MatButtonModule, Login, Register ],
+  imports: [ CommonModule, MatButtonModule, Login, Register ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.css'
 })

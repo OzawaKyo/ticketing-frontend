@@ -4,10 +4,12 @@ mat-toolbar {
   position: sticky;
   top: 0;
   z-index: 1000;
-  padding: 0 16px;
-  padding-top: 10px;
-  overflow: hidden;
+  padding: 8px 16px;
   border-bottom: 1px solid rgba(204, 194, 220, 0.1);
+  min-height: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
 }
 
 .spacer {
@@ -51,19 +53,21 @@ mat-toolbar {
 
 .profile-button {
   color: #CCC2DC !important;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
+  padding: 4px;
 }
 
 .profile-button mat-icon {
-  font-size: 40px;
-  width: 40px;
-  height: 40px;
+  font-size: 36px;
+  width: 36px;
+  height: 36px;
 }
 
 /* Styles globaux pour le menu (utilise ::ng-deep car c'est un overlay) */

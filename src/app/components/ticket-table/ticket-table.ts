@@ -6,6 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Ticket as TicketService } from '../../services/ticket';
 
 export interface Ticket {
   id: number;
@@ -37,91 +39,45 @@ export interface Ticket {
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './ticket-table.html',
   styleUrls: ['./ticket-table.css']
 })
 export class TicketTableComponent implements OnInit {
   @Input() tickets: Ticket[] = [];
+  isLoading: boolean = false;
+  error: string | null = null;
 
   displayedColumns: string[] = ['id', 'title', 'status', 'createdBy', 'assignedTo', 'createdAt', 'actions'];
 
+  constructor(private ticketService: TicketService) {}
+
   ngOnInit() {
-    // Si aucun ticket n'est fourni, on utilise des données de test
-    if (this.tickets.length === 0) {
-      this.tickets = [
-        {
-          id: 1,
-          title: "testing ticket",
-          description: "this is a testing ticket to see if the ticket entity is working well",
-          status: "in_progress",
-          createdBy: {
-            id: 15,
-            prenom: "mohamed",
-            nom: "amarcha",
-            email: "mohamed@amarcha.com",
-            role: "user",
-            createdAt: "2025-08-05T11:38:56.182Z",
-            updatedAt: "2025-08-05T11:38:56.182Z"
-          },
-          assignedTo: null,
-          createdAt: "2025-08-06T15:12:21.706Z",
-          updatedAt: "2025-08-06T15:35:21.496Z",
-          comments: []
-        },
-        {
-          id: 2,
-          title: "Bug fix urgent",
-          description: "Correction d'un bug critique sur la page de connexion",
-          status: "open",
-          createdBy: {
-            id: 16,
-            prenom: "sarah",
-            nom: "dupont",
-            email: "sarah@dupont.com",
-            role: "user",
-            createdAt: "2025-08-05T10:30:00.000Z",
-            updatedAt: "2025-08-05T10:30:00.000Z"
-          },
-          assignedTo: {
-            id: 20,
-            prenom: "alex",
-            nom: "martin",
-            email: "alex@martin.com",
-            role: "admin"
-          },
-          createdAt: "2025-08-06T10:00:00.000Z",
-          updatedAt: "2025-08-06T10:00:00.000Z",
-          comments: []
-        },
-        {
-          id: 3,
-          title: "Nouvelle fonctionnalité",
-          description: "Ajout d'une nouvelle fonctionnalité de notification",
-          status: "closed",
-          createdBy: {
-            id: 17,
-            prenom: "jean",
-            nom: "martin",
-            email: "jean@martin.com",
-            role: "user",
-            createdAt: "2025-08-04T14:20:00.000Z",
-            updatedAt: "2025-08-04T14:20:00.000Z"
-          },
-          assignedTo: {
-            id: 21,
-            prenom: "marie",
-            nom: "dubois",
-            email: "marie@dubois.com",
-            role: "admin"
-          },
-          createdAt: "2025-08-05T09:15:00.000Z",
-          updatedAt: "2025-08-06T16:45:00.000Z",
-          comments: []
-        }
-      ];
+    this.loadTickets();
+  }
+
+  loadTickets() {
+    // Si des tickets sont fournis en input, les utiliser
+    if (this.tickets.length > 0) {
+      return;
     }
+
+    this.isLoading = true;
+    this.error = null;
+
+    this.ticketService.getTickets().subscribe({
+      next: (response) => {
+        this.tickets = response;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement des tickets:', error);
+        this.error = 'Erreur lors du chargement des tickets';
+        this.isLoading = false;
+      }
+    });
   }
 
   getStatusColor(status: string): string {
