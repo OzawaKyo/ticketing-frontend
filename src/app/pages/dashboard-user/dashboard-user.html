@@ -32,7 +32,20 @@
             <div class="content-area">
                 <!-- Contenu principal basé sur l'onglet sélectionné -->
                 <div [ngSwitch]="selectedTab">
-                    <app-ticket-table *ngSwitchCase="'tab1'"></app-ticket-table>
+                    <div *ngSwitchCase="'tab1'">
+                        <!-- Vue ticket ou table de tickets -->
+                        <div *ngIf="isViewingTicket; else ticketListTemplate">
+                            <app-view-ticket 
+                                [ticketId]="selectedTicketId!" 
+                                (backToList)="backToTicketList()"
+                                (editTicket)="editTicket($event)"
+                                (deleteTicket)="deleteTicket($event)">
+                            </app-view-ticket>
+                        </div>
+                        <ng-template #ticketListTemplate>
+                            <app-ticket-table (ticketSelected)="viewTicket($event)"></app-ticket-table>
+                        </ng-template>
+                    </div>
 
                     <div *ngSwitchCase="'tab2'" class="tab-content">
                         <h3>Mes Commentaires</h3>

@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { TicketTableComponent } from '../../components/ticket-table/ticket-table';
+import { ViewTicketComponent } from '../../components/view-ticket/view-ticket';
 
 @Component({
   selector: 'app-dashboard-user',
@@ -17,7 +18,8 @@ import { TicketTableComponent } from '../../components/ticket-table/ticket-table
     MatButtonModule, 
     MatIconModule, 
     MatListModule,
-    TicketTableComponent
+    TicketTableComponent,
+    ViewTicketComponent
   ],
   templateUrl: './dashboard-user.html',
   styleUrls: ['./dashboard-user.css']
@@ -27,6 +29,10 @@ export class DashboardUser implements OnInit {
   userProfile: any = null;
   isLoading: boolean = true;
   selectedTab: string = 'tab1';
+  
+  // Propriétés pour la gestion de la vue ticket
+  selectedTicketId: number | null = null;
+  isViewingTicket: boolean = false;
 
   constructor(private userService: User, private authService: Auth, private router: Router) { }
 
@@ -68,6 +74,27 @@ export class DashboardUser implements OnInit {
 
   createNewTicket(): void {
     this.router.navigate(['/tickets/create']);
+  }
+
+  // Méthodes pour gérer la vue ticket
+  viewTicket(ticketId: number): void {
+    this.selectedTicketId = ticketId;
+    this.isViewingTicket = true;
+  }
+
+  backToTicketList(): void {
+    this.isViewingTicket = false;
+    this.selectedTicketId = null;
+  }
+
+  editTicket(ticketId: number): void {
+    this.router.navigate(['/tickets', ticketId, 'edit']);
+  }
+
+  deleteTicket(ticketId: number): void {
+    // La logique de suppression sera gérée par le composant view-ticket
+    console.log('Suppression du ticket:', ticketId);
+    this.backToTicketList();
   }
 
 }   

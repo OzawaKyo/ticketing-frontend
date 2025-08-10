@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
@@ -48,6 +48,7 @@ export interface Ticket {
 })
 export class TicketTableComponent implements OnInit {
   @Input() tickets: Ticket[] = [];
+  @Output() ticketSelected = new EventEmitter<number>();
   isLoading: boolean = false;
   error: string | null = null;
 
@@ -119,7 +120,7 @@ export class TicketTableComponent implements OnInit {
   }
 
   viewTicket(ticket: Ticket) {
-    this.router.navigate(['/tickets', ticket.id]);
+    this.ticketSelected.emit(ticket.id);
   }
 
   editTicket(ticket: Ticket) {
