@@ -139,6 +139,12 @@
     border-radius: 12px;
 }
 
+/* Empêche le redimensionnement du textarea de description et active le scroll */
+.ticket-form textarea.mat-mdc-input-element {
+    resize: none;
+    overflow: auto;
+}
+
 /* Responsive */
 @media (max-width: 968px) {
     .create-container {

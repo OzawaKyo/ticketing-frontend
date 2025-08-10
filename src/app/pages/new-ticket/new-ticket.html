@@ -13,7 +13,7 @@
                     <mat-form-field appearance="outline" class="form-field">
                         <mat-label>Titre du ticket</mat-label>
                         <input matInput type="text" formControlName="title" placeholder="Résumé du problème ou de la demande">
-                        <mat-icon matSuffix>title</mat-icon>
+                        <!-- <mat-icon matSuffix>title</mat-icon> -->
                         <mat-error *ngIf="ticketForm.get('title')?.hasError('required')">
                             Le titre est requis
                         </mat-error>
@@ -29,7 +29,7 @@
                         <mat-label>Description détaillée</mat-label>
                         <textarea matInput formControlName="description" rows="6" 
                                 placeholder="Décrivez votre problème en détail, les étapes pour le reproduire, l'impact, etc."></textarea>
-                        <mat-icon matSuffix>description</mat-icon>
+                        <!-- <mat-icon matSuffix>description</mat-icon> -->
                         <mat-error *ngIf="ticketForm.get('description')?.hasError('required')">
                             La description est requise
                         </mat-error>
