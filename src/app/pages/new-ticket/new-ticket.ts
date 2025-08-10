@@ -43,13 +43,13 @@ export class NewTicket {
 
       this.ticketService.createTicket(title, description).subscribe({
         next: (response) => {
-          console.log('Ticket créé avec succès:', response);
+          // console.log('Ticket créé avec succès:', response);
           this.isLoading = false;
           // Redirection vers le dashboard après création
           this.router.navigate(['/dashboard-user']);
         },
         error: (error) => {
-          console.error('Erreur lors de la création du ticket:', error);
+          // console.error('Erreur lors de la création du ticket:', error);
           this.error = 'Erreur lors de la création du ticket. Veuillez réessayer.';
           this.isLoading = false;
         }
