@@ -137,6 +137,7 @@
     max-width: 100%;
     height: auto;
     border-radius: 12px;
+    transition: transform 0.3s ease;
 }
 
 /* Empêche le redimensionnement du textarea de description et active le scroll */

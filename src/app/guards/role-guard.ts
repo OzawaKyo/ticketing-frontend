@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
-import { Observable, map, tap } from 'rxjs';
+import { CanActivate, Router, UrlTree } from '@angular/router';
+import { Observable, map } from 'rxjs';
 import { User } from '../user';
 
 @Injectable({
@@ -10,22 +10,17 @@ export class RoleGuard implements CanActivate {
 
   constructor(private userService: User, private router: Router) {}
 
-  canActivate(): Observable<boolean> {
+  canActivate(): Observable<boolean | UrlTree> {
     return this.userService.getUserRole().pipe(
-      tap(role => {
-        console.log('Role Guard - Rôle détecté:', role);
-        
-        // Redirection basée sur le rôle
+      map(role => {
         if (role === 'admin') {
-          this.router.navigate(['/dashboard-admin']);
-        } else if (role === 'user') {
-          this.router.navigate(['/dashboard-user']);
-        } else {
-          console.error('Rôle inconnu:', role);
-          this.router.navigate(['/homepage']);
+          return this.router.createUrlTree(['/dashboard-admin']);
         }
-      }),
-      map(() => false) // On empêche l'accès à la route actuelle car on redirige
+        if (role === 'user') {
+          return this.router.createUrlTree(['/dashboard-user']);
+        }
+        return this.router.createUrlTree(['/homepage']);
+      })
     );
   }
 }

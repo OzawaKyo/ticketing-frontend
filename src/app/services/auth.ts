@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { User } from '../user';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +11,13 @@ export class Auth {
 
   private apiUrl = 'https://ticketing-backend-50r0.onrender.com/auth';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private userService: User) { }
 
   login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, { email, password }).pipe(
       tap((response: any) => {
         localStorage.setItem('access_token', response.access_token);
+        this.userService.clearRoleCache();
       })
     );
   }
@@ -24,6 +26,7 @@ export class Auth {
     return this.http.post(`${this.apiUrl}/signup`, { prenom, nom, email, password }).pipe(
       tap((response: any) => {
         localStorage.setItem('access_token', response.access_token);
+        this.userService.clearRoleCache();
       })
     );
   }
@@ -50,6 +53,7 @@ export class Auth {
   // Logout user
   logout(): void {
     localStorage.removeItem('access_token');
+    this.userService.clearRoleCache();
     console.log('Utilisateur déconnecté');
     this.router.navigate(['/login']);
   }

@@ -8,11 +8,9 @@ export const authGuard: CanActivateFn = (route, state) => {
   
   // Check if user is authenticated using the auth service
   if (authService.isAuthenticated()) {
-    // User is authenticated
     return true;
-    } else {
-    // User is not authenticated, redirect to login
-    router.navigate(['homepage']);
-    return false;
+  } else {
+    // Return a UrlTree to redirect instead of imperative navigation
+    return router.createUrlTree(['homepage']);
   }
 };

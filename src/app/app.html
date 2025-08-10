@@ -1,4 +1,8 @@
 <main>
     <app-navbar></app-navbar>
+    <!-- Simple loader overlay during navigation -->
+    <div class="route-loader" *ngIf="isNavigating">
+        <div class="spinner"></div>
+    </div>
     <router-outlet></router-outlet>
 </main>

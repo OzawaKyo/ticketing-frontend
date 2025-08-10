@@ -8,12 +8,10 @@ export const redirectGuard: CanActivateFn = (route, state) => {
   
   // Check if user is authenticated
   if (authService.isAuthenticated()) {
-    // User is authenticated, redirect to dashboard
-    router.navigate(['dashboard']);
-    return false;
+    // User is authenticated, redirect to dashboard via UrlTree
+    return router.createUrlTree(['dashboard']);
   } else {
-    // User is not authenticated, redirect to homepage
-    router.navigate(['homepage']);
-    return false;
+    // User is not authenticated, redirect to homepage via UrlTree
+    return router.createUrlTree(['homepage']);
   }
 };

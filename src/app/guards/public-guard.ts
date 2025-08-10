@@ -6,13 +6,11 @@ export const publicGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(Auth);
   
-  // Check if user is authenticated
   if (authService.isAuthenticated()) {
-    // User is authenticated, redirect to dashboard
-    router.navigate(['dashboard']);
-    return false;
+    // Redirect to dashboard via UrlTree
+    return router.createUrlTree(['dashboard']);
   } else {
-    // User is not authenticated, allow access to public page
+    // Allow access to public page
     return true;
   }
 };
