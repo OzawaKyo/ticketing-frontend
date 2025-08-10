@@ -1,22 +1,21 @@
-<!-- Loading State -->
-<div class="ticket-container" *ngIf="isLoading">
-  <div class="center">
-    <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
-    <p class="muted">Chargement du ticket…</p>
-  </div>
+<!-- Loading spinner -->
+<div class="loading-container" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+  <p class="loading-text">Chargement du ticket...</p>
 </div>
 
-<!-- Error State -->
-<div class="ticket-container" *ngIf="!isLoading && error">
-  <mat-card appearance="outlined" class="error-card">
-    <mat-card-header>
-      <mat-card-title>Impossible d'afficher le ticket</mat-card-title>
-    </mat-card-header>
+<!-- Error state -->
+<div class="error-container" *ngIf="error && !isLoading">
+  <mat-card class="error-card">
     <mat-card-content>
-      <p>{{ error }}</p>
+      <div class="error-content">
+        <mat-icon class="error-icon">error_outline</mat-icon>
+        <h3>Erreur</h3>
+        <p>{{ error }}</p>
+      </div>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-stroked-button color="primary" (click)="retry()">
+    <mat-card-actions align="end">
+      <button mat-button color="primary" (click)="retry()">
         <mat-icon>refresh</mat-icon>
         Réessayer
       </button>
@@ -28,52 +27,175 @@
   </mat-card>
 </div>
 
-<!-- Ticket Detail -->
+<!-- Ticket content -->
 <div class="ticket-container" *ngIf="!isLoading && !error && ticket">
-  <mat-card appearance="outlined">
+  <!-- Header with back button -->
+  <div class="header-actions">
+    <button mat-icon-button (click)="goBack()" class="back-button">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1 class="page-title">Détails du Ticket</h1>
+    <div class="spacer"></div>
+    <button mat-icon-button (click)="refresh()" matTooltip="Actualiser">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
+
+  <!-- Main ticket card -->
+  <mat-card class="ticket-card">
     <mat-card-header>
-      <div mat-card-avatar class="ticket-avatar">T</div>
-      <mat-card-title>{{ ticket?.title || 'Ticket' }}</mat-card-title>
-      <mat-card-subtitle>
-        <span class="badge" [ngClass]="ticket?.status?.toLowerCase() || 'open'">{{ ticket?.status || 'OPEN' }}</span>
-        <span class="muted">#{{ ticket?._id || ticket?.id }}</span>
-      </mat-card-subtitle>
+      <div class="ticket-header">
+        <div class="ticket-title-section">
+          <h2 class="ticket-title">{{ ticket.title }}</h2>
+          <div class="ticket-meta">
+            <span class="ticket-id">ID: #{{ ticket.id }}</span>
+            <mat-chip-set>
+              <mat-chip [class]="'status-' + ticket.status?.toLowerCase()">
+                <mat-icon>{{ getStatusIcon(ticket.status) }}</mat-icon>
+                {{ ticket.status }}
+              </mat-chip>
+              <mat-chip [class]="'priority-' + ticket.priority?.toLowerCase()">
+                <mat-icon>{{ getPriorityIcon(ticket.priority) }}</mat-icon>
+                {{ ticket.priority }}
+              </mat-chip>
+            </mat-chip-set>
+          </div>
+        </div>
+      </div>
     </mat-card-header>
 
     <mat-card-content>
-      <div class="meta-grid">
-        <div>
-          <div class="meta-label">Créé le</div>
-          <div class="meta-value">{{ ticket?.createdAt | date:'short' }}</div>
+      <!-- Ticket details grid -->
+      <div class="ticket-details-grid">
+        <div class="detail-item">
+          <mat-icon class="detail-icon">person</mat-icon>
+          <div class="detail-content">
+            <span class="detail-label">Créé par</span>
+            <span class="detail-value">{{ ticket.createdBy.prenom || 'Utilisateur' }} {{ ticket.createdBy.nom || 'Inconnu' }}</span>
+            <span class="detail-value">{{ ticket.createdBy.email || 'Email inconnu' }}</span>
         </div>
-        <div>
-          <div class="meta-label">Mis à jour</div>
-          <div class="meta-value">{{ ticket?.updatedAt | date:'short' }}</div>
         </div>
-        <div>
-          <div class="meta-label">Assigné à</div>
-          <div class="meta-value">{{ ticket?.assignedTo || '—' }}</div>
+
+        <div class="detail-item">
+          <mat-icon class="detail-icon">schedule</mat-icon>
+          <div class="detail-content">
+            <span class="detail-label">Date de création</span>
+            <span class="detail-value">{{ ticket.createdAt | date:'dd/MM/yyyy à HH:mm' }}</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <mat-icon class="detail-icon">update</mat-icon>
+          <div class="detail-content">
+            <span class="detail-label">Dernière mise à jour</span>
+            <span class="detail-value">{{ ticket.updatedAt | date:'dd/MM/yyyy à HH:mm' }}</span>
+          </div>
+        </div>
+
+        <div class="detail-item" *ngIf="ticket.assignedTo">
+          <mat-icon class="detail-icon">assignment_ind</mat-icon>
+          <div class="detail-content">
+            <span class="detail-label">Assigné à</span>
+            <span class="detail-value">{{ ticket.assignedTo }}</span>
+          </div>
+        </div>
+
+        <div class="detail-item" *ngIf="ticket.category">
+          <mat-icon class="detail-icon">category</mat-icon>
+          <div class="detail-content">
+            <span class="detail-label">Catégorie</span>
+            <span class="detail-value">{{ ticket.category }}</span>
+          </div>
+        </div>
+
+        <div class="detail-item" *ngIf="ticket.tags && ticket.tags.length > 0">
+          <mat-icon class="detail-icon">label</mat-icon>
+          <div class="detail-content">
+            <span class="detail-label">Tags</span>
+            <div class="tags-container">
+              <mat-chip-set>
+                <mat-chip *ngFor="let tag of ticket.tags" class="tag-chip">{{ tag }}</mat-chip>
+              </mat-chip-set>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="section">
-        <div class="section-title">Description</div>
-        <p class="description">{{ ticket?.description || 'Aucune description fournie.' }}</p>
+      <!-- Description section -->
+      <div class="description-section">
+        <h3 class="section-title">
+          <mat-icon>description</mat-icon>
+          Description
+        </h3>
+        <div class="description-content">
+          <p *ngIf="ticket.description; else noDescription">{{ ticket.description }}</p>
+          <ng-template #noDescription>
+            <p class="no-content">Aucune description fournie</p>
+          </ng-template>
+        </div>
+      </div>
+
+      <!-- Attachments section -->
+      <div class="attachments-section" *ngIf="ticket.attachments && ticket.attachments.length > 0">
+        <h3 class="section-title">
+          <mat-icon>attach_file</mat-icon>
+          Pièces jointes ({{ ticket.attachments.length }})
+        </h3>
+        <div class="attachments-grid">
+          <mat-card class="attachment-card" *ngFor="let attachment of ticket.attachments">
+            <mat-card-content>
+              <div class="attachment-content">
+                <mat-icon class="attachment-icon">{{ getFileIcon(attachment.type) }}</mat-icon>
+                <div class="attachment-info">
+                  <span class="attachment-name">{{ attachment.name }}</span>
+                  <span class="attachment-size">{{ formatFileSize(attachment.size) }}</span>
+                </div>
+              </div>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button color="primary" (click)="downloadAttachment(attachment)">
+                <mat-icon>download</mat-icon>
+                Télécharger
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+
+      <!-- Comments section -->
+      <div class="comments-section" *ngIf="ticket.comments && ticket.comments.length > 0">
+        <h3 class="section-title">
+          <mat-icon>comment</mat-icon>
+          Commentaires ({{ ticket.comments.length }})
+        </h3>
+        <div class="comments-list">
+          <mat-card class="comment-card" *ngFor="let comment of ticket.comments">
+            <mat-card-content>
+              <div class="comment-header">
+                <div class="comment-author">
+                  <mat-icon>account_circle</mat-icon>
+                  <span>{{ comment.author || 'Utilisateur' }}</span>
+                </div>
+                <span class="comment-date">{{ comment.createdAt | date:'dd/MM/yyyy à HH:mm' }}</span>
+              </div>
+              <div class="comment-content">
+                <p>{{ comment.content }}</p>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
       </div>
     </mat-card-content>
 
-    <mat-card-actions align="end">
-      <button mat-stroked-button color="primary" (click)="refresh()">
-        <mat-icon>refresh</mat-icon>
-        Actualiser
-      </button>
-      <button mat-stroked-button color="warn" (click)="deleteTicket()">
+    <!-- Action buttons -->
+    <mat-card-actions align="end" class="ticket-actions">
+      <button mat-button color="warn" (click)="deleteTicket()" [disabled]="isLoading">
         <mat-icon>delete</mat-icon>
         Supprimer
       </button>
-      <button mat-raised-button color="primary" (click)="goBack()">
-        <mat-icon>arrow_back</mat-icon>
-        Retour
+      <button mat-raised-button color="primary" (click)="editTicket()" [disabled]="isLoading">
+        <mat-icon>edit</mat-icon>
+        Modifier
       </button>
     </mat-card-actions>
   </mat-card>
