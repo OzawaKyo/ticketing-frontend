@@ -29,6 +29,11 @@ export const routes: Routes = [
     canActivate: [authGuard, UserGuard],
     loadComponent: () => import('./pages/new-ticket/new-ticket').then(m => m.NewTicket)
   },
+  {
+    path: 'tickets/:id',
+    canActivate: [authGuard],
+    loadComponent: () => import('./pages/view-ticket/view-ticket').then(m => m.ViewTicket)
+  },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 export default routes;

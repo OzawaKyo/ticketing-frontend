@@ -1,0 +1,80 @@
+<!-- Loading State -->
+<div class="ticket-container" *ngIf="isLoading">
+  <div class="center">
+    <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+    <p class="muted">Chargement du ticket…</p>
+  </div>
+</div>
+
+<!-- Error State -->
+<div class="ticket-container" *ngIf="!isLoading && error">
+  <mat-card appearance="outlined" class="error-card">
+    <mat-card-header>
+      <mat-card-title>Impossible d'afficher le ticket</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ error }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button color="primary" (click)="retry()">
+        <mat-icon>refresh</mat-icon>
+        Réessayer
+      </button>
+      <button mat-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Retour
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<!-- Ticket Detail -->
+<div class="ticket-container" *ngIf="!isLoading && !error && ticket">
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <div mat-card-avatar class="ticket-avatar">T</div>
+      <mat-card-title>{{ ticket?.title || 'Ticket' }}</mat-card-title>
+      <mat-card-subtitle>
+        <span class="badge" [ngClass]="ticket?.status?.toLowerCase() || 'open'">{{ ticket?.status || 'OPEN' }}</span>
+        <span class="muted">#{{ ticket?._id || ticket?.id }}</span>
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="meta-grid">
+        <div>
+          <div class="meta-label">Créé le</div>
+          <div class="meta-value">{{ ticket?.createdAt | date:'short' }}</div>
+        </div>
+        <div>
+          <div class="meta-label">Mis à jour</div>
+          <div class="meta-value">{{ ticket?.updatedAt | date:'short' }}</div>
+        </div>
+        <div>
+          <div class="meta-label">Assigné à</div>
+          <div class="meta-value">{{ ticket?.assignedTo || '—' }}</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Description</div>
+        <p class="description">{{ ticket?.description || 'Aucune description fournie.' }}</p>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-stroked-button color="primary" (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+        Actualiser
+      </button>
+      <button mat-stroked-button color="warn" (click)="deleteTicket()">
+        <mat-icon>delete</mat-icon>
+        Supprimer
+      </button>
+      <button mat-raised-button color="primary" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Retour
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

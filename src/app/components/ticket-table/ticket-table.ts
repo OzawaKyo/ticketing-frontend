@@ -8,6 +8,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Ticket as TicketService } from '../../services/ticket';
+import { Router } from '@angular/router';     
 
 export interface Ticket {
   id: number;
@@ -52,7 +53,7 @@ export class TicketTableComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'title', 'status', 'createdBy', 'assignedTo', 'createdAt', 'actions'];
 
-  constructor(private ticketService: TicketService) {}
+  constructor(private ticketService: TicketService, private router: Router) {}
 
   ngOnInit() {
     this.loadTickets();
@@ -118,12 +119,11 @@ export class TicketTableComponent implements OnInit {
   }
 
   viewTicket(ticket: Ticket) {
-    console.log('Voir le ticket:', ticket);
-    // Ici vous pouvez implémenter la navigation vers les détails du ticket
+    this.router.navigate(['/tickets', ticket.id]);
   }
 
   editTicket(ticket: Ticket) {
-    console.log('Éditer le ticket:', ticket);
-    // Ici vous pouvez implémenter la logique d'édition
+    this.router.navigate(['/tickets', ticket.id, 'edit']);
   }
 }
+

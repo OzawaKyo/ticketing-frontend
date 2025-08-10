@@ -16,7 +16,7 @@
     <!-- Tableau des tickets -->
     <div *ngIf="!isLoading && !error" class="table-container">
       <table mat-table [dataSource]="tickets" class="tickets-table">
-        
+
         <!-- ID Column -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef class="id-column">ID</th>
@@ -84,13 +84,13 @@
           <td mat-cell *matCellDef="let ticket" class="actions-column">
             <button mat-icon-button 
                     matTooltip="Voir les détails" 
-                    (click)="viewTicket(ticket)"
+                    (click)="$event.stopPropagation(); viewTicket(ticket)"
                     color="primary">
               <mat-icon>visibility</mat-icon>
             </button>
             <button mat-icon-button 
                     matTooltip="Éditer le ticket" 
-                    (click)="editTicket(ticket)"
+                    (click)="$event.stopPropagation(); editTicket(ticket)"
                     color="accent">
               <mat-icon>edit</mat-icon>
             </button>
@@ -98,7 +98,14 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="ticket-row"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            class="ticket-row"
+            tabindex="0"
+            [attr.aria-label]="'Voir le ticket ' + row.id"
+            (click)="viewTicket(row)"
+            (keydown.enter)="viewTicket(row)"
+            (keydown.space)="$event.preventDefault(); viewTicket(row)">
+        </tr>
       </table>
 
       <!-- Message si aucun ticket -->
