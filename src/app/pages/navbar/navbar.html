@@ -4,19 +4,20 @@
     <span class="title" (click)="onMenuClick()">ext Tickets</span>
     <span class="spacer"></span>
 
-    <!-- Bouton Login pour utilisateurs non connectés -->
-    <button *ngIf="!isLoggedIn" mat-button class="login-button" (click)="onLoginClick()">
-      Let's gooo
-    </button>
-
-    <!-- Menu Profil pour utilisateurs connectés -->
-    <div *ngIf="isLoggedIn" class="profile-section">
-      <button mat-icon-button class="profile-button" [matMenuTriggerFor]="profileMenu">
+    <!-- Section Profil toujours visible -->
+    <div class="profile-section" *ngIf="isLoggedIn">
+      <button
+        mat-icon-button
+        class="profile-button"
+        [matMenuTriggerFor]="profileMenu"
+        (click)="!isLoggedIn && onLoginClick()"
+        aria-label="Profil">
         <mat-icon>account_circle</mat-icon>
       </button>
 
+      <!-- Define the menu always so #profileMenu exists -->
       <mat-menu #profileMenu="matMenu" class="profile-menu">
-        <div class="profile-info">
+        <div class="profile-info" *ngIf="isLoggedIn">
           <div class="profile-avatar">
             <mat-icon>account_circle</mat-icon>
           </div>
@@ -27,14 +28,14 @@
           </div>
         </div>
 
-        <mat-divider></mat-divider>
-
-        <button mat-menu-item (click)="onProfileClick()">
+        <mat-divider *ngIf="isLoggedIn"></mat-divider>
+        
+        <button mat-menu-item (click)="onProfileClick()" *ngIf="isLoggedIn">
           <mat-icon>person</mat-icon>
           <span>Mon Profil</span>
         </button>
 
-        <button mat-menu-item (click)="onLogoutClick()">
+        <button mat-menu-item (click)="onLogoutClick()" *ngIf="isLoggedIn">
           <mat-icon>logout</mat-icon>
           <span>Déconnexion</span>
         </button>

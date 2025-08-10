@@ -29,15 +29,7 @@ mat-toolbar {
   cursor: pointer;
 }
 
-.login-button {
-  color: #CCC2DC;
-  background-color: transparent;
-  border: 1px solid #CCC2DC;
-  border-radius: 15px;
-  padding: 1em;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
+
 
 .login-button:hover {
   background-color: rgba(204, 194, 220, 0.1);
