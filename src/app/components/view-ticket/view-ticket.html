@@ -165,8 +165,8 @@
             <mat-card-content>
               <div class="comment-header">
                 <div class="comment-author">
-                  <mat-icon>account_circle</mat-icon>
-                  <span>{{ comment.author || 'Utilisateur' }}</span>
+                  <mat-icon class="comment-icon">account_circle</mat-icon>
+                  <span>{{ comment.user.prenom || 'Utilisateur' }} {{ comment.user.nom || '' }}</span>
                 </div>
                 <span class="comment-date">{{ comment.createdAt | date:'dd/MM/yyyy à HH:mm' }}</span>
               </div>

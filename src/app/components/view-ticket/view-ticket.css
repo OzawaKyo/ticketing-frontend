@@ -82,10 +82,9 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-}
-
-.back-button:hover {
-    background-color: rgba(204, 194, 220, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Main ticket card */
@@ -102,7 +101,7 @@
 .ticket-header {
     background-color: #2D2830;
     padding: 15px;
-    padding-left: 27px;
+    /* padding-left: 27px; */
     border-radius: 12px 12px 0 0;
 }
 
@@ -354,6 +353,11 @@
     margin-bottom: 8px;
 }
 
+.comment-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .comment-author {
     display: flex;
     align-items: center;
@@ -387,6 +391,9 @@
     background: #2D2830;
     border-top: 1px solid rgba(204, 194, 220, 0.2);
     border-radius: 0 0 12px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .ticket-actions button {
