@@ -15,7 +15,7 @@
       </div>
     </mat-card-content>
     <mat-card-actions align="end">
-      <button mat-button color="primary" (click)="retry()">
+      <button mat-button color="primary" (click)="loadTicket()">
         <mat-icon>refresh</mat-icon>
         Réessayer
       </button>
@@ -36,30 +36,23 @@
     </button>
     <h1 class="page-title">Détails du Ticket</h1>
     <div class="spacer"></div>
-    <button mat-icon-button (click)="refresh()" matTooltip="Actualiser">
+    <button mat-icon-button (click)="loadTicket()" matTooltip="Actualiser">
       <mat-icon>refresh</mat-icon>
     </button>
   </div>
 
   <!-- Main ticket card -->
   <mat-card class="ticket-card">
-    <mat-card-header>
-      <div class="ticket-header">
+    <mat-card-header class="ticket-header">
         <div class="ticket-title-section">
           <h2 class="ticket-title">{{ ticket.title }}</h2>
           <div class="ticket-meta">
-            <span class="ticket-id">ID: #{{ ticket.id }}</span>
-            <mat-chip-set>
-              <mat-chip [class]="'status-' + ticket.status?.toLowerCase()">
-                <mat-icon>{{ getStatusIcon(ticket.status) }}</mat-icon>
-                {{ ticket.status }}
-              </mat-chip>
-              <mat-chip [class]="'priority-' + ticket.priority?.toLowerCase()">
-                <mat-icon>{{ getPriorityIcon(ticket.priority) }}</mat-icon>
-                {{ ticket.priority }}
-              </mat-chip>
-            </mat-chip-set>
-          </div>
+            <span class="ticket-id">id: {{ ticket.id }}</span>
+            <div class="chips">
+              <div class="chip status">
+                {{ getStatus(ticket.status) }}
+              </div>
+            </div>
         </div>
       </div>
     </mat-card-header>
@@ -71,7 +64,7 @@
           <mat-icon class="detail-icon">person</mat-icon>
           <div class="detail-content">
             <span class="detail-label">Créé par</span>
-            <span class="detail-value">{{ ticket.createdBy || 'Utilisateur' }}</span>
+            <span class="detail-value">{{ ticket.createdBy.email || 'Aucun email' }}</span>
           </div>
         </div>
 

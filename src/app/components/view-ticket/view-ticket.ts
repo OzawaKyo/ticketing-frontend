@@ -74,44 +74,18 @@ export class ViewTicketComponent implements OnChanges {
     this.backToList.emit();
   }
 
-  getStatusIcon(status: string): string {
+  getStatus(status: string): string {
     switch (status?.toLowerCase()) {
-      case 'ouvert':
       case 'open':
-        return 'radio_button_unchecked';
-      case 'en cours':
-      case 'in progress':
-        return 'pending';
-      case 'fermé':
+        return 'Ouvert';
+      case 'in_progress':
+        return 'En cours';
       case 'closed':
-        return 'check_circle';
-      case 'résolu':
-      case 'resolved':
-        return 'task_alt';
+        return 'Fermé';
       default:
-        return 'help_outline';
+        return 'Statut inconnu';
     }
   }
-
-  getPriorityIcon(priority: string): string {
-    switch (priority?.toLowerCase()) {
-      case 'basse':
-      case 'low':
-        return 'keyboard_arrow_down';
-      case 'moyenne':
-      case 'medium':
-        return 'remove';
-      case 'haute':
-      case 'high':
-        return 'keyboard_arrow_up';
-      case 'critique':
-      case 'critical':
-        return 'priority_high';
-      default:
-        return 'help_outline';
-    }
-  }
-
   getFileIcon(type: string): string {
     const fileType = type?.toLowerCase();
     if (fileType?.includes('image')) return 'image';
