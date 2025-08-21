@@ -155,12 +155,49 @@
       </div>
 
       <!-- Comments section -->
-      <div class="comments-section" *ngIf="ticket.comments && ticket.comments.length > 0">
-        <h3 class="section-title">
-          <mat-icon>comment</mat-icon>
-          Commentaires ({{ ticket.comments.length }})
-        </h3>
-        <div class="comments-list">
+      <div class="comments-section">
+        <div class="section-header">
+          <h3 class="section-title">
+            <mat-icon>comment</mat-icon>
+            Commentaires ({{ ticket.comments?.length || 0 }})
+          </h3>
+          <button mat-icon-button (click)="toggleCommentForm()" matTooltip="Ajouter un commentaire" class="add-comment-btn">
+            <mat-icon>{{ showCommentForm ? 'close' : 'add' }}</mat-icon>
+          </button>
+        </div>
+
+        <!-- Formulaire d'ajout de commentaire -->
+        <div class="add-comment-form" *ngIf="showCommentForm">
+          <mat-card class="comment-form-card">
+            <mat-card-content>
+              <mat-form-field appearance="outline" class="comment-input">
+                <mat-label>Votre commentaire</mat-label>
+                <textarea 
+                  matInput 
+                  [(ngModel)]="newComment" 
+                  placeholder="Écrivez votre commentaire ici..."
+                  rows="4"
+                  [disabled]="isAddingComment"
+                  style="resize: none;">
+                </textarea>
+              </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions align="end" class="comment-actions">
+              <button mat-button (click)="cancelComment()" [disabled]="isAddingComment" class="cancel-btn">
+                <mat-icon>cancel</mat-icon>
+                Annuler
+              </button>
+              <button mat-raised-button (click)="addComment()" [disabled]="!newComment.trim() || isAddingComment" class="send-btn">
+                <mat-icon *ngIf="!isAddingComment">send</mat-icon>
+                <mat-spinner *ngIf="isAddingComment" diameter="16"></mat-spinner>
+                {{ isAddingComment ? 'Envoi...' : 'Envoyer' }}
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+
+        <!-- Liste des commentaires existants -->
+        <div class="comments-list" *ngIf="ticket.comments && ticket.comments.length > 0">
           <mat-card class="comment-card" *ngFor="let comment of ticket.comments">
             <mat-card-content>
               <div class="comment-header">
@@ -175,6 +212,11 @@
               </div>
             </mat-card-content>
           </mat-card>
+        </div>
+
+        <!-- Message si pas de commentaires -->
+        <div class="no-comments" *ngIf="!ticket.comments || ticket.comments.length === 0">
+          <p class="no-content">Aucun commentaire pour le moment</p>
         </div>
       </div>
     </mat-card-content>

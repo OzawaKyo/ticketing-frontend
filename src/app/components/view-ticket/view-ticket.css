@@ -327,6 +327,126 @@
     margin: 20px 0;
 }
 
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.add-comment-btn {
+    color: #CCC2DC;
+    background: rgba(204, 194, 220, 0.1);
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-comment-btn:hover {
+    background: rgba(204, 194, 220, 0.2);
+}
+
+/* Formulaire d'ajout de commentaire */
+.add-comment-form {
+    margin-bottom: 16px;
+}
+
+.comment-form-card {
+    background: rgba(204, 194, 220, 0.05);
+    border: 1px solid rgba(204, 194, 220, 0.1);
+    border-radius: 12px;
+}
+
+.comment-input {
+    width: 100%;
+}
+
+.comment-input .mat-mdc-form-field-flex {
+    background: rgba(204, 194, 220, 0.05);
+}
+
+.comment-input .mat-mdc-text-field-wrapper {
+    background: transparent;
+}
+
+.comment-input .mdc-text-field--outlined .mdc-notched-outline__leading,
+.comment-input .mdc-text-field--outlined .mdc-notched-outline__notch,
+.comment-input .mdc-text-field--outlined .mdc-notched-outline__trailing {
+    border-color: rgba(204, 194, 220, 0.3);
+}
+
+.comment-input .mdc-text-field--outlined:hover .mdc-notched-outline__leading,
+.comment-input .mdc-text-field--outlined:hover .mdc-notched-outline__notch,
+.comment-input .mdc-text-field--outlined:hover .mdc-notched-outline__trailing {
+    border-color: rgba(204, 194, 220, 0.5);
+}
+
+.comment-input .mdc-text-field--focused .mdc-notched-outline__leading,
+.comment-input .mdc-text-field--focused .mdc-notched-outline__notch,
+.comment-input .mdc-text-field--focused .mdc-notched-outline__trailing {
+    border-color: #CCC2DC;
+}
+
+.comment-input .mdc-text-field__input {
+    color: #CCC2DC;
+}
+
+.comment-input .mdc-floating-label {
+    color: #B4A7C6;
+}
+
+.comment-input .mdc-text-field--focused .mdc-floating-label {
+    color: #CCC2DC;
+}
+
+/* Textarea non-redimensionnable */
+.comment-input textarea {
+    resize: none !important;
+}
+
+/* Boutons du formulaire de commentaire */
+.cancel-btn {
+    color: #B4A7C6 !important;
+    border: 1px solid rgba(180, 167, 198, 0.3) !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+}
+
+.cancel-btn:hover:not([disabled]) {
+    background-color: rgba(180, 167, 198, 0.1) !important;
+    border-color: rgba(180, 167, 198, 0.5) !important;
+}
+
+.send-btn {
+    background-color: rgba(204, 194, 220, 0.15) !important;
+    color: #CCC2DC !important;
+    border: 1px solid rgba(204, 194, 220, 0.3) !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+}
+
+.send-btn:hover:not([disabled]) {
+    background-color: rgba(204, 194, 220, 0.25) !important;
+    border-color: rgba(204, 194, 220, 0.5) !important;
+}
+
+.send-btn:disabled {
+    background-color: rgba(180, 167, 198, 0.1) !important;
+    color: rgba(180, 167, 198, 0.5) !important;
+    border-color: rgba(180, 167, 198, 0.2) !important;
+}
+
+.cancel-btn:disabled {
+    color: rgba(180, 167, 198, 0.5) !important;
+    border-color: rgba(180, 167, 198, 0.2) !important;
+}
+
+/* Liste des commentaires */
 .comments-list {
     display: flex;
     flex-direction: column;
@@ -382,6 +502,22 @@
     line-height: 1.5;
     color: #CCC2DC;
     font-size: 13px;
+}
+
+.comment-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Message aucun commentaire */
+.no-comments {
+    text-align: center;
+    padding: 20px;
+    background: rgba(204, 194, 220, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(204, 194, 220, 0.1);
+    margin-top: 12px;
 }
 
 /* Action buttons */

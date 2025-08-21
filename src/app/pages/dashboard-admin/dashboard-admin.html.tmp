@@ -1,0 +1,83 @@
+<div class="dashboard-container">
+    <mat-sidenav-container class="sidenav-container">
+        <mat-sidenav mode="side" opened class="sidenav">
+            <div class="cta-section">
+                <button mat-raised-button color="primary" class="new-ticket-btn" (click)="createNewTicket()">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <span class="cta-label">Nouveau</span>
+                <span class="cta-label">Ticket</span>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <mat-nav-list class="nav-list">
+                <mat-list-item class="nav-item" [class.active]="selectedTab === 'tab1'" (click)="selectTab('tab1')">
+                    <mat-icon matListItemIcon>sell</mat-icon>
+                    <span matListItemTitle>Tickets</span>
+                </mat-list-item>
+
+                <mat-list-item class="nav-item" [class.active]="selectedTab === 'tab2'" (click)="selectTab('tab2')">
+                    <mat-icon matListItemIcon>mode_comment</mat-icon>
+                    <span matListItemTitle>Commentaires</span>
+                </mat-list-item>
+
+                <mat-list-item class="nav-item" [class.active]="selectedTab === 'tab3'" (click)="selectTab('tab3')">
+                    <mat-icon matListItemIcon>history</mat-icon>
+                    <span matListItemTitle>Historique</span>
+                </mat-list-item>
+            </mat-nav-list>
+        </mat-sidenav>
+
+        <mat-sidenav-content class="main-content">
+            <div class="content-area">
+                <!-- Contenu principal basé sur l'onglet sélectionné -->
+                <div [ngSwitch]="selectedTab">
+                    <div *ngSwitchCase="'tab1'">
+                        <!-- Vue ticket ou table de tickets -->
+                        <div *ngIf="isViewingTicket; else ticketListTemplate">
+                            <app-view-ticket 
+                                [ticketId]="selectedTicketId!" 
+                                (backToList)="backToTicketList()"
+                                (editTicket)="editTicket($event)"
+                                (deleteTicket)="deleteTicket($event)">
+                            </app-view-ticket>
+                        </div>
+                        <ng-template #ticketListTemplate>
+                            <app-ticket-table (ticketSelected)="viewTicket($event)"></app-ticket-table>
+                        </ng-template>
+                    </div>
+
+                    <div *ngSwitchCase="'tab2'" class="tab-content">
+                        <h3>Mes Commentaires</h3>
+                        <p>Liste de tous vos commentaires</p>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut explicabo qui, enim tenetur
+                            error aperiam quia praesentium eos dignissimos at repudiandae earum non facilis architecto
+                            cumque voluptatem, provident quas repellendus.</p>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut explicabo qui, enim tenetur
+                            error aperiam quia praesentium eos dignissimos at repudiandae earum non facilis architecto
+                            cumque voluptatem, provident quas repellendus.</p>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut explicabo qui, enim tenetur
+                            error aperiam quia praesentium eos dignissimos at repudiandae earum non facilis architecto
+                            cumque voluptatem, provident quas repellendus.</p>
+                    </div>
+
+                    <div *ngSwitchCase="'tab3'" class="tab-content">
+                        <h3>Historique</h3>
+                        <p>Liste de toutes vos actions passées</p>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut explicabo qui, enim
+                            error aperiam quia praesentium eos dignissimos at repudiandae earum non facilis architecto
+                            cumque voluptatem, provident quas repellendus.</p>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut explicabo qui, enim tenetur
+                            error aperiam quia praesentium eos dignissimos at repudiandae earum non facilis architecto
+                            cumque voluptatem, provident quas repellendus.</p>
+                    </div>
+
+                    <div *ngSwitchDefault class="tab-content">
+                        <h3>Bienvenue sur votre Dashboard</h3>
+                        <p>Sélectionnez un onglet dans la navigation pour commencer</p>
+                    </div>
+                </div>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
