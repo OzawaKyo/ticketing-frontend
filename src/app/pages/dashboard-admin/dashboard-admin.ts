@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { TicketTableComponent } from '../../components/ticket-table/ticket-table';
 import { ViewTicketComponent } from '../../components/view-ticket/view-ticket';
+import { UsersManagementComponent } from '../../components/users-management/users-management';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -19,7 +20,8 @@ import { ViewTicketComponent } from '../../components/view-ticket/view-ticket';
     MatIconModule, 
     MatListModule,
     TicketTableComponent,
-    ViewTicketComponent
+    ViewTicketComponent,
+    UsersManagementComponent
   ],
   templateUrl: './dashboard-admin.html',
   styleUrl: './dashboard-admin.css'

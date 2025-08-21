@@ -1,0 +1,359 @@
+/* Loading container */
+.loading-container {
+    text-align: center;
+    padding: 40px 20px;
+    color: #CCC2DC;
+}
+
+.loading-container mat-spinner {
+    margin: 0 auto 16px;
+}
+
+.loading-text {
+    margin: 0;
+    font-size: 16px;
+}
+
+/* Error container */
+.error-container {
+    text-align: center;
+    padding: 40px 20px;
+    color: #f44336;
+}
+
+.error-card {
+    max-width: 500px;
+    width: 100%;
+    background-color: #1D1B20;
+    border: 1px solid rgba(244, 67, 54, 0.2);
+    border-radius: 8px;
+    margin: 0 auto;
+}
+
+.error-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.error-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: #f44336;
+    margin-bottom: 16px;
+}
+
+.error-container p {
+    margin: 0 0 16px 0;
+    font-size: 16px;
+}
+
+.error-container button {
+    margin-top: 8px;
+}
+
+.retry-btn {
+    background-color: rgba(204, 194, 220, 0.15) !important;
+    color: #CCC2DC !important;
+    border: 1px solid rgba(204, 194, 220, 0.3) !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+}
+
+.retry-btn:hover {
+    background-color: rgba(204, 194, 220, 0.25) !important;
+}
+
+/* Main container */
+.users-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.page-title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #CCC2DC;
+}
+
+.refresh-btn {
+    color: #CCC2DC;
+    background: rgba(204, 194, 220, 0.1);
+    border-radius: 8px;
+}
+
+.refresh-btn:hover {
+    background: rgba(204, 194, 220, 0.2);
+}
+
+/* Users card - même style que ticket-table-card */
+.users-card {
+    margin: 0;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+}
+
+.users-card .mat-card-content {
+    padding: 0;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid rgba(204, 194, 220, 0.2);
+    background-color: #1D1B20;
+}
+
+/* Table styles - même style que tickets-table */
+.users-table {
+    width: 100%;
+    background: #1D1B20;
+    color: #CCC2DC;
+}
+
+.users-table th {
+    background-color: #2D2830;
+    font-weight: 600;
+    color: #CCC2DC;
+    border-bottom: 2px solid rgba(204, 194, 220, 0.2);
+    padding: 16px 12px;
+    height: 60px;
+}
+
+.users-table td {
+    border-bottom: 1px solid rgba(204, 194, 220, 0.1);
+    color: #CCC2DC;
+    padding: 16px 12px;
+    height: 70px;
+}
+
+.table-row {
+    transition: background-color 0.2s ease;
+}
+
+.table-row:hover {
+    background-color: rgba(204, 194, 220, 0.1);
+}
+
+/* Colonnes spécifiques */
+.header-cell {
+    background-color: #2D2830;
+    color: #CCC2DC;
+    font-weight: 600;
+    font-size: 14px;
+    border-bottom: 2px solid rgba(204, 194, 220, 0.2);
+    padding: 16px 12px;
+}
+
+.data-cell {
+    color: #CCC2DC;
+    border-bottom: 1px solid rgba(204, 194, 220, 0.1);
+    padding: 16px 12px;
+    font-size: 14px;
+}
+
+/* User ID styling - même style que id-column */
+.user-id {
+    width: 80px;
+    text-align: center;
+    font-weight: 600;
+    color: #B4A7C6;
+    font-family: 'Courier New', monospace;
+    background: rgba(204, 194, 220, 0.1);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    border: 1px solid rgba(204, 194, 220, 0.2);
+}
+
+/* User email styling - même style que creator/assigned info */
+.user-info {
+    min-width: 150px;
+    vertical-align: top;
+}
+
+.user-name {
+    font-weight: 500;
+    color: #CCC2DC;
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+
+.user-email {
+    font-size: 11px;
+    color: #B4A7C6;
+}
+
+/* Role badges - même style que status chips */
+.role-badge {
+    font-size: 11px;
+    min-height: 24px;
+    border-radius: 12px;
+    font-weight: 500;
+    padding: 6px 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.role-admin {
+    background: rgba(244, 67, 54, 0.15);
+    color: #f44336;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.role-user {
+    background: rgba(204, 194, 220, 0.15);
+    color: #CCC2DC;
+    border: 1px solid rgba(204, 194, 220, 0.3);
+}
+
+.role-default {
+    background: rgba(180, 167, 198, 0.15);
+    color: #B4A7C6;
+    border: 1px solid rgba(180, 167, 198, 0.3);
+}
+
+/* Date info styling */
+.date-info {
+    min-width: 150px;
+    vertical-align: top;
+}
+
+.date-text {
+    font-size: 12px;
+    color: #CCC2DC;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+/* Actions column - même style que tickets */
+.actions-column {
+    width: 80px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.actions-cell {
+    width: 80px;
+    text-align: center;
+}
+
+.delete-btn {
+    color: #f44336;
+    background: rgba(244, 67, 54, 0.1);
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+}
+
+.delete-btn:hover:not([disabled]) {
+    background: rgba(244, 67, 54, 0.2);
+}
+
+.delete-btn:disabled {
+    color: rgba(180, 167, 198, 0.5);
+    background: rgba(180, 167, 198, 0.05);
+    cursor: not-allowed;
+}
+
+.delete-btn mat-icon {
+    color: #f44336;
+}
+
+/* No data message - même style que no-tickets */
+.no-data {
+    text-align: center;
+    padding: 40px 20px;
+    color: #B4A7C6;
+}
+
+.no-data mat-icon {
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+    color: #B4A7C6;
+}
+
+.no-data p {
+    margin: 0;
+    font-size: 16px;
+}
+
+/* Responsive design - même style que tickets */
+@media (max-width: 768px) {
+    .users-container {
+        padding: 12px;
+    }
+    
+    .page-title {
+        font-size: 20px;
+    }
+    
+    .table-container {
+        overflow-x: scroll;
+    }
+
+    .users-table {
+        min-width: 800px;
+    }
+    
+    .header-cell,
+    .data-cell {
+        padding: 12px 8px;
+        font-size: 12px;
+    }
+    
+    .user-name {
+        font-size: 12px;
+    }
+
+    .user-email {
+        font-size: 10px;
+    }
+
+    .date-text {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .header-section {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+    
+    .users-table {
+        font-size: 11px;
+        min-width: 900px;
+    }
+    
+    .role-badge {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+
+    .date-text {
+        font-size: 9px;
+    }
+}
