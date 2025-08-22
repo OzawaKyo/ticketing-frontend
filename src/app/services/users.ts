@@ -29,4 +29,15 @@ export class Users {
     });
     return this.http.delete(`${this.apiUrl}/${userId}`, { headers });
   }
+
+  // Update user role
+  updateUserRole(userId: string, newRole: string): Observable<any> {
+    const token = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    return this.http.patch(`${this.apiUrl}/${userId}/role`, { role: newRole }, { headers });
+  }
+
 }
