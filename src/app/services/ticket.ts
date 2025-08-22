@@ -58,6 +58,15 @@ export class Ticket {
     return this.http.delete(`${this.apiUrl}/${ticketId}`, { headers });
   }
 
+  // Update ticket status only
+  updateTicketStatus(ticketId: string, status: string): Observable<any> {
+    const token = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    const statusData = { status };
+    return this.http.put(`${this.apiUrl}/${ticketId}`, statusData, { headers });
+  }
 
 }
 

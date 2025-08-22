@@ -49,7 +49,10 @@
           <div class="ticket-meta">
             <span class="ticket-id">id: {{ ticket.id }}</span>
             <div class="chips">
-              <div class="chip status">
+              <div class="chip status clickable"
+                   (click)="toggleTicketStatus()"
+                   matTooltip="Cliquer pour changer le statut"
+                   [attr.aria-label]="'Changer le statut du ticket. Statut actuel: ' + getStatus(ticket.status)">
                 {{ getStatus(ticket.status) }}
               </div>
             </div>

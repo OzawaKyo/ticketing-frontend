@@ -36,7 +36,12 @@
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef>Statut</th>
           <td mat-cell *matCellDef="let ticket">
-            <mat-chip [color]="getStatusColor(ticket.status)" selected>
+            <mat-chip [color]="getStatusColor(ticket.status)" 
+                     selected 
+                     class="status-badge clickable"
+                     (click)="$event.stopPropagation(); toggleTicketStatus(ticket)"
+                     matTooltip="Cliquer pour changer le statut"
+                     [attr.aria-label]="'Changer le statut du ticket. Statut actuel: ' + getStatusText(ticket.status)">
               {{getStatusText(ticket.status)}}
             </mat-chip>
           </td>

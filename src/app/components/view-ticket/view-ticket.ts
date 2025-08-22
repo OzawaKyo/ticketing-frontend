@@ -9,8 +9,10 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Ticket } from '../../services/ticket';
 import { Comment } from '../../services/comment';
+import { StatusChangeConfirmationDialog } from '../../shared/dialogs/status-change-confirmation-dialog.component';
 
 @Component({
   selector: 'app-view-ticket',
@@ -25,7 +27,8 @@ import { Comment } from '../../services/comment';
     MatChipsModule, 
     MatTooltipModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
   ],
   templateUrl: './view-ticket.html',
   styleUrls: ['./view-ticket.css']
@@ -45,7 +48,7 @@ export class ViewTicketComponent implements OnChanges {
   isAddingComment: boolean = false;
   showCommentForm: boolean = false;
 
-  constructor(private ticketService: Ticket, private commentService: Comment) {}
+  constructor(private ticketService: Ticket, private commentService: Comment, private dialog: MatDialog) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['ticketId'] && this.ticketId) {
@@ -105,6 +108,80 @@ export class ViewTicketComponent implements OnChanges {
       default:
         return 'Statut inconnu';
     }
+  }
+
+  getStatusColor(status: string): string {
+    switch (status?.toLowerCase()) {
+      case 'open':
+        return 'primary';
+      case 'in_progress':
+        return 'accent';
+      case 'closed':
+        return 'warn';
+      default:
+        return '';
+    }
+  }
+
+  toggleTicketStatus() {
+    if (!this.ticket || !this.ticketId) return;
+
+    const currentStatus = this.ticket.status.toLowerCase();
+    let newStatus: string;
+    let statusText: string;
+
+    // Définir le prochain statut dans le cycle
+    switch (currentStatus) {
+      case 'open':
+        newStatus = 'in_progress';
+        statusText = 'En cours';
+        break;
+      case 'in_progress':
+        newStatus = 'closed';
+        statusText = 'Fermé';
+        break;
+      case 'closed':
+        newStatus = 'open';
+        statusText = 'Ouvert';
+        break;
+      default:
+        newStatus = 'open';
+        statusText = 'Ouvert';
+    }
+
+    // Ouvrir la boîte de dialogue de confirmation
+    const dialogRef = this.dialog.open(StatusChangeConfirmationDialog, {
+      width: '400px',
+      panelClass: 'custom-dialog-container',
+      data: {
+        ticketTitle: this.ticket.title,
+        currentStatus: this.getStatus(this.ticket.status),
+        newStatus: statusText
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.performStatusChange(newStatus);
+      }
+    });
+  }
+
+  private performStatusChange(newStatus: string) {
+    if (!this.ticketId) return;
+
+    // Appel à l'API pour mettre à jour le statut
+    this.ticketService.updateTicketStatus(this.ticketId.toString(), newStatus).subscribe({
+      next: () => {
+        console.log('Statut du ticket mis à jour avec succès');
+        // Mettre à jour le ticket localement
+        this.ticket.status = newStatus;
+      },
+      error: (error) => {
+        console.error('Erreur lors de la mise à jour du statut:', error);
+        // Ici vous pourriez afficher un message d'erreur à l'utilisateur
+      }
+    });
   }
   getFileIcon(type: string): string {
     const fileType = type?.toLowerCase();

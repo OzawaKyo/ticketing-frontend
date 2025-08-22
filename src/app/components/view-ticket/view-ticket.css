@@ -619,3 +619,77 @@
         font-size: 18px;
     }
 }
+
+/* Styles pour les badges de statut cliquables */
+.chip.status.clickable {
+    cursor: pointer !important;
+    transition: all 0.3s ease;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.chip.status.clickable:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.chip.status.clickable:active {
+    transform: translateY(0);
+    transition: transform 0.1s ease;
+}
+
+.chip.status.clickable:focus {
+    outline: 2px solid #CCC2DC;
+    outline-offset: 2px;
+}
+
+.chip.status.clickable::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.chip.status.clickable:hover::before {
+    left: 100%;
+}
+
+/* Styles pour le dialogue de confirmation de statut */
+::ng-deep .custom-dialog-container .mat-mdc-dialog-surface {
+    background-color: #1D1B20 !important;
+    color: #CCC2DC !important;
+    border: 1px solid rgba(204, 194, 220, 0.2);
+}
+
+::ng-deep .custom-dialog-container .mat-mdc-dialog-title {
+    color: #CCC2DC !important;
+    font-weight: 500;
+}
+
+::ng-deep .custom-dialog-container .mat-mdc-dialog-content {
+    color: #CCC2DC !important;
+}
+
+::ng-deep .custom-dialog-container .mat-mdc-button {
+    color: #CCC2DC !important;
+    border: 1px solid rgba(204, 194, 220, 0.3);
+}
+
+::ng-deep .custom-dialog-container .mat-mdc-button:hover {
+    background-color: rgba(204, 194, 220, 0.1) !important;
+}
+
+::ng-deep .custom-dialog-container .mat-mdc-raised-button.mat-primary {
+    background-color: #6750A4 !important;
+    color: #FFFFFF !important;
+    border: none;
+}
+
+::ng-deep .custom-dialog-container .mat-mdc-raised-button.mat-primary:hover {
+    background-color: #7965AF !important;
+}

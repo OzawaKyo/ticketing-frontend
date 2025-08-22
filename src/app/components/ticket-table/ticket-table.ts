@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
@@ -7,8 +7,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Ticket as TicketService } from '../../services/ticket';
-import { Router } from '@angular/router';     
+import { Router } from '@angular/router';
+import { StatusChangeConfirmationDialog } from '../../shared/dialogs/status-change-confirmation-dialog.component';     
 
 export interface Ticket {
   id: number;
@@ -41,7 +43,8 @@ export interface Ticket {
     MatButtonModule,
     MatTooltipModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule
   ],
   templateUrl: './ticket-table.html',
   styleUrls: ['./ticket-table.css']
@@ -54,7 +57,7 @@ export class TicketTableComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'title', 'status', 'createdBy', 'assignedTo', 'createdAt', 'actions'];
 
-  constructor(private ticketService: TicketService, private router: Router) {}
+  constructor(private ticketService: TicketService, private router: Router, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.loadTickets();
@@ -125,6 +128,63 @@ export class TicketTableComponent implements OnInit {
 
   editTicket(ticket: Ticket) {
     this.router.navigate(['/tickets', ticket.id, 'edit']);
+  }
+
+  toggleTicketStatus(ticket: Ticket) {
+    const currentStatus = ticket.status.toLowerCase();
+    let newStatus: string;
+    let statusText: string;
+
+    // Définir le prochain statut dans le cycle
+    switch (currentStatus) {
+      case 'open':
+        newStatus = 'in_progress';
+        statusText = 'En cours';
+        break;
+      case 'in_progress':
+        newStatus = 'closed';
+        statusText = 'Fermé';
+        break;
+      case 'closed':
+        newStatus = 'open';
+        statusText = 'Ouvert';
+        break;
+      default:
+        newStatus = 'open';
+        statusText = 'Ouvert';
+    }
+
+    // Ouvrir la boîte de dialogue de confirmation
+    const dialogRef = this.dialog.open(StatusChangeConfirmationDialog, {
+      width: '400px',
+      panelClass: 'custom-dialog-container',
+      data: {
+        ticketTitle: ticket.title,
+        currentStatus: this.getStatusText(ticket.status),
+        newStatus: statusText
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.performStatusChange(ticket, newStatus);
+      }
+    });
+  }
+
+  private performStatusChange(ticket: Ticket, newStatus: string) {
+    // Appel à l'API pour mettre à jour le statut
+    this.ticketService.updateTicketStatus(ticket.id.toString(), newStatus).subscribe({
+      next: () => {
+        console.log('Statut du ticket mis à jour avec succès');
+        // Mettre à jour le ticket localement
+        ticket.status = newStatus;
+      },
+      error: (error) => {
+        console.error('Erreur lors de la mise à jour du statut:', error);
+        // Ici vous pourriez afficher un message d'erreur à l'utilisateur
+      }
+    });
   }
 }
 
