@@ -40,14 +40,15 @@
         <ng-container matColumnDef="role">
           <th mat-header-cell *matHeaderCellDef class="header-cell">Rôle</th>
           <td mat-cell *matCellDef="let user" class="data-cell">
-            <span 
-              class="role-badge clickable" 
-              [ngClass]="getRoleBadgeClass(user.role)"
-              [class.disabled]="isCurrentUser(user)"
-              matTooltip="{{isCurrentUser(user) ? 'Vous ne pouvez pas changer votre propre rôle' : 'Cliquer pour alterner le rôle'}}"
-              (click)="toggleUserRole(user)">
-              {{user.role}}
-            </span>
+            <mat-chip [color]="getRoleColor(user.role)" 
+                     selected 
+                     class="role-badge clickable"
+                     [class.disabled]="isCurrentUser(user)"
+                     (click)="$event.stopPropagation(); toggleUserRole(user)"
+                     matTooltip="{{isCurrentUser(user) ? 'Vous ne pouvez pas changer votre propre rôle' : 'Cliquer pour alterner le rôle'}}"
+                     [attr.aria-label]="'Changer le rôle de l\'utilisateur. Rôle actuel: ' + getRoleText(user.role)">
+              {{getRoleText(user.role)}}
+            </mat-chip>
           </td>
         </ng-container>
 

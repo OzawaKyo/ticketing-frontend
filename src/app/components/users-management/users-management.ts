@@ -9,6 +9,7 @@ import { MatDialogModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angu
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatChipsModule } from '@angular/material/chips';
 import { Users } from '../../services/users';
 import { User } from '../../user';
 
@@ -25,7 +26,8 @@ import { User } from '../../user';
     MatDialogModule,
     MatTooltipModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatChipsModule
   ],
   templateUrl: './users-management.html',
   styleUrls: ['./users-management.css']
@@ -108,6 +110,28 @@ export class UsersManagementComponent implements OnInit {
         return 'role-user';
       default:
         return 'role-default';
+    }
+  }
+
+  getRoleColor(role: string): string {
+    switch (role?.toLowerCase()) {
+      case 'admin':
+        return 'warn';
+      case 'user':
+        return 'primary';
+      default:
+        return '';
+    }
+  }
+
+  getRoleText(role: string): string {
+    switch (role?.toLowerCase()) {
+      case 'admin':
+        return 'Administrateur';
+      case 'user':
+        return 'Utilisateur';
+      default:
+        return role;
     }
   }
 
